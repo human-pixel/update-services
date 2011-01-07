@@ -7,7 +7,7 @@ Author: S H Mohanjith (Incsub), Andrew Billits (Incsub)
 Version: 1.0.2
 Author URI: http://premium.wpmudev.org
 Network: true
-WPID: 77
+WDP ID: 77
 */ 
 
 /* 
@@ -87,21 +87,16 @@ function update_services_site_admin_options_process() {
 //------------------------------------------------------------------------//
 
 function update_services_setting_section_output() {
-if ( get_option('blog_public') ) {
-?>
-
-<p><label for="ping_sites"><?php _e('When you publish a new post, WordPress automatically notifies the following site update services. For more about this, see <a href="http://codex.wordpress.org/Update_Services">Update Services</a> on the Codex. Separate multiple service <abbr title="Universal Resource Locator">URL</abbr>s with line breaks.', 'update_services') ?></label></p>
-
-<textarea name="ping_sites" id="ping_sites" class="large-text" rows="3"><?php form_option('ping_sites'); ?></textarea>
-
-<?php
-} else {
-?>
-
-	<p><?php printf(__('WordPress is not notifying any <a href="http://codex.wordpress.org/Update_Services">Update Services</a> because of your blog\'s <a href="%s">privacy settings</a>.', 'update_services'), 'options-privacy.php'); ?></p>
-
-<?php
-}
+	if ( get_option('blog_public') ) {
+	?>
+	<p><label for="ping_sites"><?php _e('When you publish a new post, WordPress automatically notifies the following site update services. For more about this, see <a href="http://codex.wordpress.org/Update_Services">Update Services</a> on the Codex. Separate multiple service <abbr title="Universal Resource Locator">URL</abbr>s with line breaks.', 'update_services') ?></label></p>
+	<textarea name="ping_sites" id="ping_sites" class="large-text" rows="3"><?php form_option('ping_sites'); ?></textarea>
+	<?php
+	} else {
+	?>
+		<p><?php printf(__('WordPress is not notifying any <a href="http://codex.wordpress.org/Update_Services">Update Services</a> because of your blog\'s <a href="%s">privacy settings</a>.', 'update_services'), 'options-privacy.php'); ?></p>
+	<?php
+	}
 }
 
 function update_services_site_admin_options() {

@@ -8,6 +8,7 @@ Version: 1.0.2
 Author URI: http://premium.wpmudev.org
 Network: true
 WDP ID: 77
+Text Domain: update_services
 */ 
 
 /* 

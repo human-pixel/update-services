@@ -2,16 +2,16 @@
 /*
 Plugin Name: Update Services
 Plugin URI: http://premium.wpmudev.org/project/update-services
-Description: Multisite automatically removes the update services box from the settings 
+Description: Multisite automatically removes the update services box from the settings
 Author: S H Mohanjith (Incsub), Andrew Billits (Incsub)
-Version: 1.0.2
+Version: 1.0.3
 Author URI: http://premium.wpmudev.org
 Network: true
 WDP ID: 77
 Text Domain: update_services
-*/ 
+*/
 
-/* 
+/*
 Copyright 2007-2009 Incsub (http://incsub.com)
 
 This program is free software; you can redistribute it and/or modify
@@ -27,6 +27,10 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+global $wpmudev_notices;
+$wpmudev_notices[] = array( 'id'=> 77, 'name'=> 'Update Services', 'screens' => array( 'settings-network' ) );
+include_once(plugin_dir_path( __FILE__ ).'external/dash-notice/wpmudev-dash-notification.php');
 
 //------------------------------------------------------------------------//
 //---Config---------------------------------------------------------------//
@@ -47,7 +51,7 @@ add_action('wpmu_new_blog', 'update_services_default', 1, 1);
 function update_services_init() {
 	if ( !is_multisite() )
 		exit( 'The Update Services plugin is only compatible with WordPress Multisite.' );
-		
+
 	load_plugin_textdomain('update_services', false, dirname(plugin_basename(__FILE__)).'/languages');
 }
 
@@ -59,7 +63,7 @@ function update_services_default($blog_ID) {
 	if ( !empty( $default_update_services ) ) {
 		switch_to_blog( $blog_ID );
 		update_option('ping_sites', $default_update_services);
-		restore_current_blog();	
+		restore_current_blog();
 	}
 }
 
@@ -112,10 +116,10 @@ function update_services_site_admin_options() {
 		}
 	}
 	?>
-		<h3><?php _e('Update Services', 'update_services') ?></h3> 
+		<h3><?php _e('Update Services', 'update_services') ?></h3>
 		<table class="form-table">
-			<tr valign="top"> 
-				<th scope="row"><?php _e('Default Update Services', 'update_services') ?></th> 
+			<tr valign="top">
+				<th scope="row"><?php _e('Default Update Services', 'update_services') ?></th>
 				<td><textarea name="default_update_services" type="text" rows="3" wrap="soft" id="default_update_services" style="width: 95%"/><?php echo stripslashes( $default_update_services ); ?></textarea>
 					<br />
 					<?php _e('Separate multiple service URLs with line breaks. Note that the default updates services will be configured for new blogs only.', 'update_services') ?>
@@ -123,14 +127,4 @@ function update_services_site_admin_options() {
 			</tr>
 		</table>
 	<?php
-}
-
-if ( !function_exists( 'wdp_un_check' ) ) {
-	add_action( 'admin_notices', 'wdp_un_check', 5 );
-	add_action( 'network_admin_notices', 'wdp_un_check', 5 );
-
-	function wdp_un_check() {
-		if ( !class_exists( 'WPMUDEV_Update_Notifications' ) && current_user_can( 'edit_users' ) )
-			echo '<div class="error fade"><p>' . __('Please install the latest version of <a href="http://premium.wpmudev.org/project/update-notifications/" title="Download Now &raquo;">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href="http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/">More information &raquo;</a>', 'wpmudev') . '</a></p></div>';
-	}
 }

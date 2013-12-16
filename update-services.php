@@ -4,7 +4,7 @@ Plugin Name: Update Services
 Plugin URI: http://premium.wpmudev.org/project/update-services
 Description: Multisite automatically removes the update services box from the settings
 Author: S H Mohanjith (Incsub), Andrew Billits (Incsub)
-Version: 1.0.3
+Version: 1.0.2.1
 Author URI: http://premium.wpmudev.org
 Network: true
 WDP ID: 77
@@ -27,10 +27,6 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-
-global $wpmudev_notices;
-$wpmudev_notices[] = array( 'id'=> 77, 'name'=> 'Update Services', 'screens' => array( 'settings-network' ) );
-include_once(plugin_dir_path( __FILE__ ).'external/dash-notice/wpmudev-dash-notification.php');
 
 //------------------------------------------------------------------------//
 //---Config---------------------------------------------------------------//
@@ -128,3 +124,8 @@ function update_services_site_admin_options() {
 		</table>
 	<?php
 }
+
+global $wpmudev_notices;
+$wpmudev_notices[] = array( 'id'=> 77, 'name'=> 'Update Services', 'screens' => array( 'settings-network' ) );
+include_once(plugin_dir_path( __FILE__ ).'external/dash-notice/wpmudev-dash-notification.php');
+
